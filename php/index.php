@@ -4,6 +4,8 @@ ini_set( 'session.save_handler', 'memcached' );
 ini_set( 'session.save_path', 'localhost:11211' );
 
 require_once 'limonade/lib/limonade.php';
+use vender\cebe\markdown\Parser;
+use vender\cebe\markdown\Markdown;
 
 function configure()
 {
@@ -111,7 +113,11 @@ function filter_anti_csrf($route) {
     }
 }
 
-function markdown($content) {
+function markdown($content) {  
+  $parser = new markdown::Markdown();
+  //return $parser->parse($content);
+   return "aaa";
+   /**
     $fh = tmpfile();
     $metadata = stream_get_meta_data($fh);
     $filename = $metadata['uri'];
@@ -119,6 +125,7 @@ function markdown($content) {
     $html = shell_exec("../bin/markdown " . $filename);
     fclose($fh);
     return $html;
+*/
 }
 
 dispatch_get('/', function() {
